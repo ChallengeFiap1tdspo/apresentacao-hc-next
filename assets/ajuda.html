@@ -3,10 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospital Das Clínicas - Telemedicina</title>
+  <title>Central de Ajuda - Hospital Das Clínicas</title>
   <link rel="stylesheet" href="../css/ajuda.css">
+  <!-- Biblioteca de ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Biblioteca de animações -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Face API.js para detecção facial -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.1/dist/face-landmarks-detection.min.js"></script>
 </head>
 <body>
+
+  <!-- Assistente Virtual Flutuante -->
+  <div class="assistente-virtual" id="assistenteVirtual">
+    <div class="avatar-assistente">
+      <i class="fas fa-robot"></i>
+    </div>
+    <div class="bolha-chat" id="bolhaChat">
+      <p>Olá! Posso ajudar com a teleconsulta?</p>
+    </div>
+  </div>
 
   <header class="cabecalho">
     <div class="container cabecalho-container">
@@ -21,112 +38,521 @@
           <li><a href="./faq.html">FAQ</a></li>
           <li><a href="./contato.html">Contato</a></li>
           <li><a href="./ajuda.html" class="ativo">Ajuda</a></li>
-         
         </ul>
       </nav>
+      
+      <!-- Painel de Acessibilidade -->
+      <div class="painel-acessibilidade">
+        <button id="btnFonteMaior" aria-label="Aumentar fonte">
+          <i class="fas fa-text-height"></i>
+        </button>
+        <button id="btnAltoContraste" aria-label="Alto contraste">
+          <i class="fas fa-adjust"></i>
+        </button>
+        <button id="btnLeitorTela" aria-label="Ativar leitor de tela">
+          <i class="fas fa-assistive-listening-systems"></i>
+        </button>
+      </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="passos-telemedicina">
-      <h1>Portal de Telemedicina do Hospital das Clínicas</h1>
-      <p>Guia completo para acesso aos serviços de Teleconsulta e recursos digitais</p>
-    </section>
-
-    <section class="passos-telemedicina">
-      <h2>Como Funciona</h2>
-
-      <div class="passo-item">
-        <div class="passo-numero">1</div>
-        <div class="passo-conteudo">
-          <h3>Primeiro acesso</h3>
-          <p>Acesse o portal do Paciente HC pelo site ou aplicativo.</p>
+    <!-- Hero Section com Busca por Voz -->
+    <section class="hero-telemedicina">
+      <div class="hero-conteudo">
+        <h1 class="animate__animated animate__fadeInDown">Central de Ajuda - Telemedicina</h1>
+        <p class="hero-descricao">Encontre ajuda rápida para usar nossos serviços de teleconsulta</p>
+        
+        <!-- Busca Inteligente com Voz -->
+        <div class="busca-inteligente">
+          <div class="campo-busca">
+            <input type="text" id="campoPesquisa" placeholder="Digite sua dúvida ou problema...">
+            <button id="btnPesquisar">
+              <i class="fas fa-search"></i>
+            </button>
+            <button id="btnVoz" class="btn-voz">
+              <i class="fas fa-microphone"></i>
+            </button>
+          </div>
+          <div class="sugestoes-busca" id="sugestoesBusca"></div>
         </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">2</div>
-        <div class="passo-conteudo">
-          <h3>Cadastrar Senha</h3>
-          <p>Clique na opção "Cadastrar Senha".</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">3</div>
-        <div class="passo-conteudo">
-          <h3>Localizar Paciente</h3>
-          <p>Digite o número do CPF do paciente e clique na opção "Localizar Paciente".</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">4</div>
-        <div class="passo-conteudo">
-          <h3>Confirmar Dados</h3>
-          <p>Informe dados para contato, confirme as informações pessoais e registre uma senha de acesso.</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">5</div>
-        <div class="passo-conteudo">
-          <h3>Acessar Portal</h3>
-          <p>Clique novamente em "Cadastrar Senha" e "Acessar Agora".</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">6</div>
-        <div class="passo-conteudo">
-          <h3>Login</h3>
-          <p>Digite o CPF e a senha cadastrada.</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">7</div>
-        <div class="passo-conteudo">
-          <h3>Teleconsultas</h3>
-          <p>Acesse o Portal, selecione a opção "Teleconsultas" e aceite o termo de autorização se estiver de acordo.</p>
-        </div>
-      </div>
-
-      <div class="passo-item">
-        <div class="passo-numero">8</div>
-        <div class="passo-conteudo">
-          <h3>Iniciar Atendimento</h3>
-          <p>Selecione o teleatendimento desejado. Habilite câmera, microfone e aguarde o profissional entrar na sala.</p>
+        
+        <!-- Indicador de Fala -->
+        <div class="indicador-voz" id="indicadorVoz">
+          <div class="onda-sonora">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p>Ouvindo... Fale agora</p>
         </div>
       </div>
     </section>
 
+    <!-- Seção de Acesso Rápido -->
+    <section class="acesso-rapido">
+      <h2>Acesso Rápido</h2>
+      <div class="grid-acesso-rapido">
+        <div class="card-acesso" data-passo="1">
+          <div class="icone-card">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h3>Primeiro Acesso</h3>
+          <p>Como fazer cadastro inicial</p>
+        </div>
+        <div class="card-acesso" data-passo="3">
+          <div class="icone-card">
+            <i class="fas fa-sign-in-alt"></i>
+          </div>
+          <h3>Fazer Login</h3>
+          <p>Acessar com CPF e senha</p>
+        </div>
+        <div class="card-acesso" data-passo="7">
+          <div class="icone-card">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Iniciar Consulta</h3>
+          <p>Começar atendimento por vídeo</p>
+        </div>
+        <div class="card-acesso" data-problema="audio">
+          <div class="icone-card">
+            <i class="fas fa-volume-up"></i>
+          </div>
+          <h3>Problemas de Áudio</h3>
+          <p>Sem som ou microfone</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guia Interativo Passo a Passo -->
+    <section class="guia-interativo">
+      <h2>Guia Completo de Teleconsulta</h2>
+      <p class="guia-descricao">Siga os passos abaixo para sua consulta online</p>
+      
+      <div class="navegacao-passos">
+        <button class="btn-passo" id="btnAnterior" disabled>
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        <span class="contador-passos">Passo <span id="passoAtual">1</span> de 8</span>
+        <button class="btn-passo" id="btnProximo">
+          Próximo <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="container-passos">
+        <!-- Passo 1 -->
+        <div class="passo-guia ativo" data-passo="1">
+          <div class="passo-header">
+            <div class="numero-passo">1</div>
+            <h3>Primeiro Acesso ao Portal</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Acesse o portal do Paciente HC pelo site ou aplicativo.</p>
+              <div class="dica-importante">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Dica:</strong> Tenha seu CPF em mãos antes de começar
+              </div>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Portal do Paciente HC</h4>
+                  <div class="botao-mockup destaque">Primeiro Acesso</div>
+                  <div class="botao-mockup">Já tenho cadastro</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 2 -->
+        <div class="passo-guia" data-passo="2">
+          <div class="passo-header">
+            <div class="numero-passo">2</div>
+            <h3>Cadastrar Senha</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Clique na opção "Cadastrar Senha" para iniciar o processo.</p>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Cadastrar Senha</h4>
+                  <div class="campo-mockup">
+                    <label>CPF</label>
+                    <div class="input-mockup">___.___.___-__</div>
+                  </div>
+                  <div class="botao-mockup destaque">Localizar Paciente</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 3 -->
+        <div class="passo-guia" data-passo="3">
+          <div class="passo-header">
+            <div class="numero-passo">3</div>
+            <h3>Localizar Paciente</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Digite o número do CPF do paciente e clique na opção "Localizar Paciente".</p>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Localizar Paciente</h4>
+                  <div class="campo-mockup">
+                    <label>CPF</label>
+                    <div class="input-mockup">123.456.789-00</div>
+                  </div>
+                  <div class="botao-mockup destaque">Localizar Paciente</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 4 -->
+        <div class="passo-guia" data-passo="4">
+          <div class="passo-header">
+            <div class="numero-passo">4</div>
+            <h3>Confirmar Dados</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Informe dados para contato, confirme as informações pessoais e registre uma senha de acesso.</p>
+              <div class="dica-importante">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Dica:</strong> Use uma senha forte e anote em local seguro
+              </div>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Confirmar Dados</h4>
+                  <div class="campo-mockup">
+                    <label>Nome Completo</label>
+                    <div class="input-mockup">João Silva Santos</div>
+                  </div>
+                  <div class="campo-mockup">
+                    <label>E-mail</label>
+                    <div class="input-mockup">joao.silva@email.com</div>
+                  </div>
+                  <div class="campo-mockup">
+                    <label>Senha</label>
+                    <div class="input-mockup">••••••••</div>
+                  </div>
+                  <div class="botao-mockup destaque">Confirmar Cadastro</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 5 -->
+        <div class="passo-guia" data-passo="5">
+          <div class="passo-header">
+            <div class="numero-passo">5</div>
+            <h3>Acessar Portal</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Clique novamente em "Cadastrar Senha" e "Acessar Agora".</p>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Portal do Paciente HC</h4>
+                  <div class="botao-mockup destaque">Cadastrar Senha</div>
+                  <div class="botao-mockup">Acessar Agora</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 6 -->
+        <div class="passo-guia" data-passo="6">
+          <div class="passo-header">
+            <div class="numero-passo">6</div>
+            <h3>Login</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Digite o CPF e a senha cadastrada.</p>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Login</h4>
+                  <div class="campo-mockup">
+                    <label>CPF</label>
+                    <div class="input-mockup">123.456.789-00</div>
+                  </div>
+                  <div class="campo-mockup">
+                    <label>Senha</label>
+                    <div class="input-mockup">••••••••</div>
+                  </div>
+                  <div class="botao-mockup destaque">Entrar</div>
+                  <div class="link-mockup">Esqueci minha senha</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 7 -->
+        <div class="passo-guia" data-passo="7">
+          <div class="passo-header">
+            <div class="numero-passo">7</div>
+            <h3>Teleconsultas</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Acesse o Portal, selecione a opção "Teleconsultas" e aceite o termo de autorização se estiver de acordo.</p>
+              <div class="dica-importante">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Dica:</strong> Leia atentamente o termo antes de aceitar
+              </div>
+            </div>
+            <div class="passo-visual">
+              <div class="mockup-tela">
+                <div class="mockup-header">
+                  <div class="pontos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="mockup-conteudo">
+                  <h4>Portal do Paciente</h4>
+                  <div class="menu-mockup">
+                    <div class="item-menu">Minhas Consultas</div>
+                    <div class="item-menu destaque">Teleconsultas</div>
+                    <div class="item-menu">Exames</div>
+                    <div class="item-menu">Prontuário</div>
+                  </div>
+                  <div class="termo-mockup">
+                    <h5>Termo de Autorização</h5>
+                    <p>Declaro que li e concordo com os termos de uso da teleconsulta...</p>
+                    <div class="botao-mockup destaque">Aceitar e Continuar</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Passo 8 -->
+        <div class="passo-guia" data-passo="8">
+          <div class="passo-header">
+            <div class="numero-passo">8</div>
+            <h3>Iniciar Atendimento</h3>
+          </div>
+          <div class="passo-conteudo">
+            <div class="passo-descricao">
+              <p>Selecione o teleatendimento desejado. Habilite câmera, microfone e aguarde o profissional entrar na sala.</p>
+              <div class="dica-importante">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Dica:</strong> Teste áudio e vídeo antes da consulta
+              </div>
+            </div>
+            <div class="passo-visual">
+              <div class="video-chamada-demo">
+                <div class="video-container">
+                  <div class="video-paciente">
+                    <div class="indicador-video">
+                      <i class="fas fa-video"></i>
+                      <span>Sua câmera</span>
+                    </div>
+                  </div>
+                  <div class="video-medico">
+                    <div class="indicador-video">
+                      <i class="fas fa-user-md"></i>
+                      <span>Médico</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="controles-video">
+                  <button class="controle ativo">
+                    <i class="fas fa-microphone"></i>
+                  </button>
+                  <button class="controle ativo">
+                    <i class="fas fa-video"></i>
+                  </button>
+                  <button class="controle">
+                    <i class="fas fa-phone"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recursos Multimídia Expandidos -->
     <section class="recursos-container">
-      <div class="recurso-box">
-        <div class="recurso-icon">
-          <img src="../img/fotoCamera.png" alt="Ícone de vídeo">
+      <h2>Recursos de Aprendizado</h2>
+      
+      <div class="grid-recursos">
+        <div class="recurso-box">
+          <div class="recurso-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <div class="recurso-text">
+            <h3>Tutorial Completo</h3>
+            <p>Vídeo passo a passo mostrando todo o processo de acesso e uso da teleconsulta.</p>
+            <div class="player-miniatura">
+              <div class="controles-player">
+                <button class="btn-play">
+                  <i class="fas fa-play"></i>
+                </button>
+                <div class="barra-progresso">
+                  <div class="progresso"></div>
+                </div>
+              </div>
+            </div>
+            <a href="https://drive.google.com/file/d/1_0PZ1fi3FKTEP9mPQ2QC2JBMCdBslFLE/view?usp=sharing"
+               class="btn-recurso"
+               target="_blank">
+              <i class="fas fa-external-link-alt"></i> Assistir Tutorial Completo
+            </a>
+          </div>
         </div>
-        <div class="recurso-text">
-          <h3>Primeiro Acesso ao Portal</h3>
-          <p>Assista a um tutorial simples mostrando cada passo do login.</p>
-          <a href="https://drive.google.com/file/d/19GFDe1AETkPKZTzSg7ld1IKye0t4CS6-/view?usp=sharing"
-             class="btn-recurso"
-             target="_blank"
-             title="Assistir tutorial de primeiro acesso ao portal">Assistir</a>
+
+        <div class="recurso-box">
+          <div class="recurso-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <div class="recurso-text">
+            <h3>Guia Visual</h3>
+            <p>Sequência de imagens com instruções detalhadas para cada etapa.</p>
+            <div class="carrossel-miniatura">
+              <div class="slide-carrossel ativo">Imagem 1: Tela de Login</div>
+              <div class="slide-carrossel">Imagem 2: Cadastro de Senha</div>
+              <div class="slide-carrossel">Imagem 3: Sala de Espera Virtual</div>
+              <div class="navegacao-carrossel">
+                <button class="btn-carrossel">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <span>1/3</span>
+                <button class="btn-carrossel">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+            <a href="#" class="btn-recurso">
+              <i class="fas fa-download"></i> Baixar Guia em PDF
+            </a>
+          </div>
+        </div>
+
+        <div class="recurso-box">
+          <div class="recurso-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="recurso-text">
+            <h3>Suporte Imediato</h3>
+            <p>Precisa de ajuda agora? Converse com nosso atendimento.</p>
+            <div class="opcoes-contato">
+              <button class="btn-contato telefone">
+                <i class="fas fa-phone"></i> Ligar
+              </button>
+              <button class="btn-contato whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="btn-contato chat">
+                <i class="fas fa-comments"></i> Chat Online
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="recurso-box">
-        <div class="recurso-icon">
-          <img src="../img/fotoCamera.png" alt="Ícone de vídeo">
+    <!-- Simulador de Problemas Comuns -->
+    <section class="solucionador-problemas">
+      <h2>Solucionador de Problemas</h2>
+      <p>Encontre rapidamente a solução para dificuldades comuns</p>
+      
+      <div class="problemas-grid">
+        <div class="card-problema" data-problema="login">
+          <div class="icone-problema">
+            <i class="fas fa-key"></i>
+          </div>
+          <h4>Não consigo fazer login</h4>
+          <button class="btn-solucao">Ver Solução</button>
         </div>
-        <div class="recurso-text">
-          <h3>Vídeo Explicativo</h3>
-          <p>Tutorial completo mostrando como acessar o portal e iniciar a consulta.</p>
-          <a href="https://drive.google.com/file/d/1_0PZ1fi3FKTEP9mPQ2QC2JBMCdBslFLE/view?usp=sharing"
-             class="btn-recurso"
-             target="_blank"
-             title="Assistir vídeo completo sobre como acessar e utilizar o portal">Assistir</a>
+        
+        <div class="card-problema" data-problema="audio">
+          <div class="icone-problema">
+            <i class="fas fa-volume-mute"></i>
+          </div>
+          <h4>Não escuto o médico</h4>
+          <button class="btn-solucao">Ver Solução</button>
+        </div>
+        
+        <div class="card-problema" data-problema="video">
+          <div class="icone-problema">
+            <i class="fas fa-video-slash"></i>
+          </div>
+          <h4>Câmera não funciona</h4>
+          <button class="btn-solucao">Ver Solução</button>
+        </div>
+        
+        <div class="card-problema" data-problema="conexao">
+          <div class="icone-problema">
+            <i class="fas fa-wifi"></i>
+          </div>
+          <h4>Problemas de conexão</h4>
+          <button class="btn-solucao">Ver Solução</button>
         </div>
       </div>
     </section>
@@ -142,9 +568,9 @@
 
       <div class="coluna-footer">
         <h3>Contato</h3>
-        <p>(11) 1111-1111</p>
-        <p>(11) 99999-9999 (WhatsApp)</p>
-        <p>teleconsulta@hsp.com.br</p>
+        <p><i class="fas fa-phone"></i> (11) 1111-1111</p>
+        <p><i class="fab fa-whatsapp"></i> (11) 99999-9999 (WhatsApp)</p>
+        <p><i class="fas fa-envelope"></i> teleconsulta@hsp.com.br</p>
       </div>
 
       <div class="base-rodape">
@@ -153,5 +579,19 @@
     </div>
   </footer>
 
+  <!-- Modal de Soluções -->
+  <div class="modal-solucao" id="modalSolucao">
+    <div class="modal-conteudo">
+      <button class="fechar-modal">&times;</button>
+      <div class="modal-cabecalho">
+        <h3 id="tituloProblema"></h3>
+      </div>
+      <div class="modal-corpo" id="corpoSolucao">
+        <!-- Conteúdo da solução será inserido aqui -->
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/ajuda.js"></script>
 </body>
 </html>
