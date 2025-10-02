@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login de Paciente</title>
+    <link rel="stylesheet" href="../css/forms.css" />
+    <script src="../js/login.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login de Paciente</h1>
+
+        <form id="paciente-form" action="ajuda.html" method="GET">
+            <fieldset>
+                <legend>Dados de Login</legend>
+
+                <div class="row">
+                    <div class="form-item">
+                        <label for="idCpf" class="required">CPF:</label>
+                        <input type="text" id="idCpf" name="cpf" maxlength="14" placeholder="000.000.000-00" required />
+                    </div>
+
+                    <div class="form-item">
+                        <label for="idIdade" class="required">Idade:</label>
+                        <input type="number" id="idIdade" name="idade" min="0" placeholder="Digite sua idade" required />
+                    </div>
+                </div>
+
+                <button type="submit" id="btnEnviar">ENTRAR</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>

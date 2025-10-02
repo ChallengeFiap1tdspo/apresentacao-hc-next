@@ -1,0 +1,536 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #f8f9fa;
+    font-size: 18px;
+}
+
+.container {
+    width: 70%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+
+.cabecalho {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 0;
+}
+
+.cabecalho-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    gap: 30px;
+}
+
+.logo img {
+    max-height: 80px;
+    width: auto;
+}
+
+.menu {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #005b96;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.menu a.ativo {
+    color: #ffffff;
+    background-color: #00a1e0;
+}
+
+/* Header Telemedicina */
+.telemedicina-header {
+    text-align: center;
+    padding: 80px 0 60px;
+    background-color: #ffffff;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0, 91, 150, 0.05);
+}
+
+.telemedicina-header h1 {
+    font-size: 2.5rem;
+    color: #005b96;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.telemedicina-header p {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Passos */
+.passos-telemedicina {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.passos-telemedicina h2,
+.recursos-telemedicina h2,
+.beneficios-telemedicina h2 {
+    color: #005b96;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.passos-telemedicina h2::after,
+.recursos-telemedicina h2::after,
+.beneficios-telemedicina h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 80px;
+    height: 3px;
+    background-color: #00a1e0;
+}
+
+.passos-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.passo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 91, 150, 0.1);
+    margin-bottom: 25px;
+    border-left: 4px solid #00a1e0;
+    transition: all 0.3s ease;
+}
+
+.passo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 91, 150, 0.15);
+}
+
+.passo-numero {
+    background-color: #005b96;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.passo-conteudo h3 {
+    color: #005b96;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.passo-conteudo p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.recursos-telemedicina {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.recursos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.recurso-box {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 91, 150, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-top: 3px solid #00a1e0;
+}
+
+.recurso-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 91, 150, 0.15);
+}
+
+.recurso-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f8ff;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+.recurso-icon img {
+    max-width: 100%;
+    height: auto;
+}
+
+.recurso-text h3 {
+    color: #005b96;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.recurso-text p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.btn-recurso {
+    background-color: #005b96;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-recurso:hover {
+    background-color: #003d66;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.beneficios-telemedicina {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.beneficios-lista {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.beneficio-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.beneficio-item:hover {
+    background-color: #e6f2ff;
+    transform: translateX(5px);
+}
+
+.beneficio-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #005b96;
+    border-radius: 50%;
+}
+
+.beneficio-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.beneficio-text h3 {
+    color: #005b96;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+}
+
+.beneficio-text p {
+    color: #555;
+    line-height: 1.6;
+}
+
+
+.cta-telemedicina {
+    padding: 80px 0;
+    background-color: #005b96;
+    color: #ffffff;
+    text-align: center;
+}
+
+.cta-telemedicina h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.cta-telemedicina p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+.cta-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-cta {
+    display: inline-block;
+    padding: 14px 32px;
+    color: #ffffff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-cta.primario {
+    background-color: #00a1e0;
+}
+
+.btn-cta.primario:hover {
+    background-color: #0078a8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cta.secundario {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+}
+
+.btn-cta.secundario:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+
+.rodape {
+    background-color: #003d66;
+    color: #ffffff;
+    padding: 60px 0 30px;
+}
+
+.rodape .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.coluna-footer h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.coluna-footer h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #00a1e0;
+}
+
+.coluna-footer p,
+.coluna-footer a {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.coluna-footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.coluna-footer a:hover {
+    color: #00a1e0;
+}
+
+.base-rodape {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+@media (max-width: 992px) {
+    .container {
+        width: 90%;
+    }
+
+    .cabecalho-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .recursos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-botoes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-cta {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .beneficio-item,
+    .passo-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .beneficio-icon,
+    .passo-numero {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .telemedicina-header h1 {
+        font-size: 2rem;
+    }
+
+    .telemedicina-header p {
+        font-size: 1.1rem;
+    }
+
+    .recursos-container {
+        grid-template-columns: 1fr;
+    }
+
+    .beneficio-text h3,
+    .recurso-text h3,
+    .passo-conteudo h3 {
+        font-size: 1.2rem;
+    }
+
+    .beneficio-text p,
+    .recurso-text p,
+    .passo-conteudo p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .telemedicina-header {
+        padding: 40px 0 30px;
+    }
+
+    .telemedicina-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .telemedicina-header p {
+        font-size: 0.95rem;
+    }
+
+    .passos-telemedicina h2,
+    .recursos-telemedicina h2,
+    .beneficios-telemedicina h2,
+    .cta-telemedicina h2 {
+        font-size: 1.4rem;
+    }
+
+    .passo-item,
+    .recurso-box,
+    .beneficio-item {
+        padding: 16px;
+    }
+
+    .btn-recurso,
+    .btn-cta {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+    }
+
+    .coluna-footer h3 {
+        font-size: 1.2rem;
+    }
+
+    .coluna-footer p,
+    .coluna-footer a {
+        font-size: 0.95rem;
+    }
+
+    .base-rodape {
+        font-size: 0.8rem;
+    }
+}
