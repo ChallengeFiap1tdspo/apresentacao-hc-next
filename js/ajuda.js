@@ -155,11 +155,7 @@ function inicializarGuiaInterativo() {
                 btnProximo.disabled = passoAtual === totalPassos;
             }
             
-            // Rolar para o topo do passo
-            passoAlvo.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
+            // REMOVIDO: Scroll automático - usuário permanece na mesma posição
         }
     }
 
